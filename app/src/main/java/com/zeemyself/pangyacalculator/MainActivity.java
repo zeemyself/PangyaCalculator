@@ -2,6 +2,7 @@ package com.zeemyself.pangyacalculator;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage("WindFront - Result(" + Toma.getResultFront() +") Force(" + Toma.getForceFront() +")\n" +"WindBack - Result(" + Toma.getResultBack() +") Force(" + Toma.getForceBack() +")")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                               setContentView(R.layout.activitytab);
+//                               setContentView(R.layout.activitytab);
+                                startActivity(new Intent(getApplicationContext(),TabActivity.class));
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
