@@ -107,7 +107,7 @@ public class CCTo {
             return temp;
         }
         public double calcHMinus() {
-            double temp = Hback * (Math.pow(Variancefront,(oneW100force-realDistance)));
+            double temp = Hback * (Math.pow(Varianceback,(oneW100force-realDistance)));
             return temp;
         }
         public double calcInfHPlus(){

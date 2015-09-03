@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //              Toast.makeText(getApplicationContext(),distance.getText(), Toast.LENGTH_LONG).show();
-                CCTo Toma = new CCTo(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
-                Toast.makeText(getApplicationContext(), Toma.calcHWIWindMinus() + "", Toast.LENGTH_LONG).show();
+                CCDunk Toma = new CCDunk(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
+                Toast.makeText(getApplicationContext(), Toma.calcInfBack() + "", Toast.LENGTH_LONG).show();
 
 
 
