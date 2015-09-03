@@ -1,5 +1,7 @@
 package com.zeemyself.pangyacalculator;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,8 +31,26 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 //              Toast.makeText(getApplicationContext(),distance.getText(), Toast.LENGTH_LONG).show();
                 CCTo Toma = new CCTo(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
-                Toast.makeText(getApplicationContext(),Toma.calcFront()+"", Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(),Toma.calcCalibateFront()+"", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), Toma.calcHWIWindMinus() + "", Toast.LENGTH_LONG).show();
+
+
+
+
+                AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Result Tomahawk 280+6")
+                        .setMessage("WindFront - Result(" + Toma.getResultFront() +") Force(" + Toma.getForceFront() +")\n" +"WindBack - Result(" + Toma.getResultBack() +") Force(" + Toma.getForceBack() +")")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
     }

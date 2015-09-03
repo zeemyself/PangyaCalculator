@@ -36,7 +36,7 @@ public class CCTo {
     private double forceVPlus,forceVMinus;
     private double forceFrontPer,forceBackPer;
     private double calibateFront,calibateBack;
-
+    private double calibateDisFront,calibateDisBack;
     CCTo (String distance,String height,String wind,String angle,String terrain){
         this.distance = Double.parseDouble(distance);
         this.height = Double.parseDouble(height);
@@ -71,6 +71,12 @@ public class CCTo {
         forceVPlus = calcForceVPlus();
         forceFrontPer = calcForceFrontPer();
         forceBackPer = calcForceBackPer();
+
+        calibateFront = calcCalibate(calcFront());
+        calibateBack = calcCalibate(calcBack());
+
+        calibateDisFront = calcDisFront();
+        calibateDisBack = calcDisBack();
     }
 
         public double calcPureHWI(){
@@ -144,7 +150,7 @@ public class CCTo {
             return 1;
         }
         public double calcWindPercentMinus(){
-            return (100 + (windMinusInfH * 4)/-6.25) /100;
+            return (100 + (windMinusInfH * 4)/-6.25) /100.00;
         }
         public double calcHWICosWind(){
             return pureHWI * Math.sin(Math.toRadians(angle)) * wind;
@@ -159,7 +165,7 @@ public class CCTo {
             return InfActual * windPercentPlus;
         }
         public double calcHWIWindMinus(){
-            return InfActual * windPercentMinus;
+            return InfActual / windPercentMinus;
         }
         public double calcDevFront(){
             return QBall + HWIWindPlus;
@@ -182,16 +188,38 @@ public class CCTo {
         public int calcFront(){
             return (int) Math.ceil(((forceFrontPer - 80) / (20.0/72.0)) + 1);
         }
-        public double calcBack(){
-            return Math.ceil(((forceBackPer - 80) / (20.0/72.0)) + 1);
+        public int calcBack(){
+            return (int) Math.ceil(((forceBackPer - 80) / (20.0/72.0)) + 1);
         }
-        public double calcCalibateFront(){
+        public double calcCalibate(int num){
             try {
-                return ToCalibate[calcFront()-1];
+                return ToCalibate[num-1];
             }
             catch (Exception e){
                 return 0;
             }
+        }
+        public double calcDisFront(){
+            return devFront / 0.2165;
+        }
+        public double calcDisBack(){
+            return devBack / 0.2165;
+        }
+        public double getForceFront(){
+            return calibateFront;
+        }
+        public double getForceBack(){
+            return calibateBack;
+        }
+        public double getResultFront(){
+            double temp = Math.round(calibateDisFront*100);
+            temp = temp/100;
+            return temp;
+        }
+        public double getResultBack(){
+            double temp = Math.round(calibateDisBack*100);
+            temp = temp/100;
+            return temp;
         }
 
 
