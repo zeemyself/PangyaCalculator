@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 //              Toast.makeText(getApplicationContext(),distance.getText(), Toast.LENGTH_LONG).show();
                 CCTo Toma = new CCTo(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
-                Toast.makeText(getApplicationContext(),Toma.calcWindPercentMinus()+"", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),Toma.calcFront()+"", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),Toma.calcCalibateFront()+"", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -4,11 +4,23 @@ package com.zeemyself.pangyacalculator;
  * Created by Swas on 8/31/2015.
  */
 public class CCTo {
+    private final double oneW100force = 301.5;
+    private final double oneW100hwi = 1.08;
+    private final double oneW90force = 268;
+    private final double oneW90hwi = 0.772;
+    private final double oneW80force = 235.75;
+    private final double oneW80hwi = 0.545;
+    private final double Hfront = 0.675;
+    private final double Hback = 0.615;
+    private final double Variancefront = 1.0112;
+    private final double Varianceback = 1.011;
+    private final double[] ToCalibate = {236.8,237.6,238.4,239.3,240.1,240.9,241.7,242.6,243.4,244.2,245.0,245.8,246.7,247.5,248.3,249.1,250.0,250.8,251.6,252.4,253.2,254.1,254.9,255.7,256.5,257.4,258.2,259.0,259.8,260.6,261.5,262.3,263.1,263.9,264.8,265.6,266.4,267.2,268.0,268.9,269.7,270.5,271.3,272.2,273.0,273.8,274.6,275.4,276.3,277.1,277.9,278.7,279.6,280.4,281.2,282.0,282.8,283.7,284.5,285.3,286.1,287.0,287.8,288.6,289.4,290.2,291.1,291.9,292.7,293.5,294.4,295.2,296.0};
     private double distance;
     private double height;
     private int wind;
     private int angle;
     private int terrain;
+    private int QBall;
     private double realDistance,actualDistance,calcDistance;
     private double pureHWI;
     private double HPlus,HMinus;
@@ -17,12 +29,21 @@ public class CCTo {
     private double windForce;
     private double windPlusInfH,windMinusInfH;
     private double windPercentPlus,windPercentMinus;
+    private double HWICosWind;
+    private double InfActual;
+    private double HWIWindPlus,HWIWindMinus;
+    private double devFront,devBack;
+    private double forceVPlus,forceVMinus;
+    private double forceFrontPer,forceBackPer;
+    private double calibateFront,calibateBack;
+
     CCTo (String distance,String height,String wind,String angle,String terrain){
         this.distance = Double.parseDouble(distance);
         this.height = Double.parseDouble(height);
         this.wind = Integer.parseInt(wind);
         this.angle = Integer.parseInt(angle);
         this.terrain = Integer.parseInt(terrain);
+        this.QBall = 0;
         realDistance = calcRealDistance();
         pureHWI = calcPureHWI();
         HPlus = calcHPlus();
@@ -38,18 +59,20 @@ public class CCTo {
         windMinusInfH = calcWindMinusInfH();
         windPercentPlus = calcWindPercentPlus();
         windPercentMinus = calcWindPercentMinus();
-    }
-    private final double oneW100force = 301.5;
-    private final double oneW100hwi = 1.08;
-    private final double oneW90force = 268;
-    private final double oneW90hwi = 0.772;
-    private final double oneW80force = 235.75;
-    private final double oneW80hwi = 0.545;
 
-    private final double Hfront = 0.675;
-    private final double Hback = 0.615;
-    private final double Variancefront = 1.0112;
-    private final double Varianceback = 1.011;
+        HWICosWind = calcHWICosWind();
+        InfActual = calcInfActual();
+        HWIWindPlus = calcHWIWindPlus();
+        HWIWindMinus = calcHWIWindMinus();
+
+        devBack = calcDevBack();
+        devFront = calcDevFront();
+        forceVMinus = calcForceVMinus();
+        forceVPlus = calcForceVPlus();
+        forceFrontPer = calcForceFrontPer();
+        forceBackPer = calcForceBackPer();
+    }
+
         public double calcPureHWI(){
             double firsttemp = 0;
             double secondtemp =0;
@@ -123,6 +146,54 @@ public class CCTo {
         public double calcWindPercentMinus(){
             return (100 + (windMinusInfH * 4)/-6.25) /100;
         }
+        public double calcHWICosWind(){
+            return pureHWI * Math.sin(Math.toRadians(angle)) * wind;
+        }
+        public double calcInfActual(){
+            if (actualDistance > 0)
+                return HWICosWind * InfHplus;
+            else
+                return HWICosWind * InfHminus;
+        }
+        public double calcHWIWindPlus(){
+            return InfActual * windPercentPlus;
+        }
+        public double calcHWIWindMinus(){
+            return InfActual * windPercentMinus;
+        }
+        public double calcDevFront(){
+            return QBall + HWIWindPlus;
+        }
+        public double calcDevBack(){
+            return QBall + HWIWindMinus;
+        }
+        public double calcForceVPlus(){
+            return realDistance + actualDistance - windPlusInfH;
+        }
+        public double calcForceVMinus(){
+            return realDistance + actualDistance + windMinusInfH;
+        }
+        public double calcForceFrontPer(){
+            return 100*(forceVPlus-oneW90force)*(forceVPlus-oneW80force)/((oneW100force-oneW90force)*(oneW100force-oneW80force))+90*(forceVPlus-oneW100force)*(forceVPlus-oneW80force)/((oneW90force-oneW100force)*(oneW90force-oneW80force))+80*(forceVPlus-oneW100force)*(forceVPlus-oneW90force)/((oneW80force-oneW100force)*(oneW80force-oneW90force));
+        }
+        public double calcForceBackPer(){
+            return 100*(forceVMinus-oneW90force)*(forceVMinus-oneW80force)/((oneW100force-oneW90force)*(oneW100force-oneW80force))+90*(forceVMinus-oneW100force)*(forceVMinus-oneW80force)/((oneW90force-oneW100force)*(oneW90force-oneW80force))+80*(forceVMinus-oneW100force)*(forceVMinus-oneW90force)/((oneW80force-oneW100force)*(oneW80force-oneW90force));
+        }
+        public int calcFront(){
+            return (int) Math.ceil(((forceFrontPer - 80) / (20.0/72.0)) + 1);
+        }
+        public double calcBack(){
+            return Math.ceil(((forceBackPer - 80) / (20.0/72.0)) + 1);
+        }
+        public double calcCalibateFront(){
+            try {
+                return ToCalibate[calcFront()-1];
+            }
+            catch (Exception e){
+                return 0;
+            }
+        }
+
 
 
 }
