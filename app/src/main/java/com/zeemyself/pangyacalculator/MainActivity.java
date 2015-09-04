@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText distance,height,wind,angle,terrain;
     private Button calc;
     private CCDunk Dunk;
-    private CCDunk Toma;
+    private CCTo Toma;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,20 +34,46 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //              Toast.makeText(getApplicationContext(),distance.getText(), Toast.LENGTH_LONG).show();
-                Toma = new CCDunk(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
+                Toma = new CCTo(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
                 Toast.makeText(getApplicationContext(), Toma.calcInfBack() + "", Toast.LENGTH_LONG).show();
-
-
+                Dunk = new CCDunk(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
 
 
                 AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Result Tomahawk 280+6")
-                        .setMessage("WindFront - Result(" + Toma.getResultFront() +") Force(" + Toma.getForceFront() +")\n" +"WindBack - Result(" + Toma.getResultBack() +") Force(" + Toma.getForceBack() +")")
+                        .setMessage("WindFront - Result(" + Dunk.getResultFront() +") Force(" + Toma.getForceFront() +")\n" +"WindBack - Result(" + Toma.getResultBack() +") Force(" + Toma.getForceBack() +")")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 //                               setContentView(R.layout.activitytab);
                                Intent inten =  new Intent(getApplicationContext(),TabActivity.class);
-                                inten.putExtra("resultFront",Toma.getResultFront());
+                                String toResF,toResB,toPerF,toPerB,toCalF,toCalB;
+                                String dunkResF,dunkResB,dunkPerF,dunkPerB,dunkCalF,dunkCalB;
+                                toResF = Toma.getResultFront()+"";
+                                toResB = Toma.getResultBack()+"";
+                                toPerF = Toma.getPercentFront()+"%";
+                                toPerB = Toma.getPercentBack()+"%";
+                                toCalF = Toma.getForceFront()+"";
+                                toCalB = Toma.getForceBack()+"";
+                                inten.putExtra("toResF",toResF);
+                                inten.putExtra("toResB",toResB);
+                                inten.putExtra("toPerF",toPerF);
+                                inten.putExtra("toPerB",toPerB);
+                                inten.putExtra("toCalF",toCalF);
+                                inten.putExtra("toCalB", toCalB);
+
+                                dunkResF = Dunk.getResultFront()+"";
+                                dunkResB = Dunk.getResultBack()+"";
+                                dunkPerF = Dunk.getPercentFront()+"%";
+                                dunkPerB = Dunk.getPercentBack()+"%";
+                                dunkCalF = Dunk.getForceFront()+"";
+                                dunkCalB = Dunk.getForceBack()+"";
+                                inten.putExtra("dunkResF",dunkResF);
+                                inten.putExtra("dunkResB",dunkResB);
+                                inten.putExtra("dunkPerF",dunkPerF);
+                                inten.putExtra("dunkPerB",dunkPerB);
+                                inten.putExtra("dunkCalF",dunkCalF);
+                                inten.putExtra("dunkCalB",dunkCalB);
+
                                 MainActivity.this.startActivity(inten);
                             }
                         })

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -21,7 +22,27 @@ public class Tab2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab2,container,false);
         resFront = (TextView) v.findViewById(R.id.resFront);
-        resFront.setText("555");
+        resBack = (TextView) v.findViewById(R.id.resBack);
+        percenFront = (TextView) v.findViewById(R.id.percenFront);
+        percenBack = (TextView) v.findViewById(R.id.percenBack);
+        caliperFront = (TextView) v.findViewById(R.id.caliperFront);
+        caliperBack = (TextView) v.findViewById(R.id.caliperBack);
+
+
+        Intent intent = getActivity().getIntent();
+        Bundle args = intent.getExtras();
+        String toResF = args.getString("toResF");
+        String toResB = args.getString("toResB");
+        String toPerF = args.getString("toPerF");
+        String toPerB = args.getString("toPerB");
+        String toCalF = args.getString("toCalF");
+        String toCalB = args.getString("toCalB");
+        resFront.setText(toResF);
+        resBack.setText(toResB);
+        percenFront.setText(toPerF);
+        percenBack.setText(toPerB);
+        caliperFront.setText(toCalF);
+        caliperBack.setText(toCalB);
         return v;
     }
 

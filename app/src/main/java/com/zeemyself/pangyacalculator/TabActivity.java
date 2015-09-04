@@ -23,18 +23,14 @@ public class TabActivity extends ActionBarActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Home","Events"};
+    CharSequence Titles[]={"Dunk","Tomahawk"};
     int Numboftabs =2;
-
-    private TextView resFront,resBack;
-    private TextView percenFront,percenBack;
-    private TextView caliperFront,caliperBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitytab);
-//        Intent intent = getIntent();
+
 
         // Creating The Toolbar and setting it as the Toolbar for the activity
 
@@ -64,14 +60,6 @@ public class TabActivity extends ActionBarActivity {
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
 
-//        resFront = (TextView) findViewById(R.id.resFront);
-//        resBack = (TextView) findViewById(R.id.resBack);
-//        percenFront = (TextView) findViewById(R.id.percenFront);
-//        percenBack = (TextView) findViewById(R.id.percenBack);
-//        caliperFront = (TextView) findViewById(R.id.caliperFront);
-//        caliperBack = (TextView) findViewById(R.id.caliperBack);
-//
-//        resFront.setText("5555");
     }
 
 

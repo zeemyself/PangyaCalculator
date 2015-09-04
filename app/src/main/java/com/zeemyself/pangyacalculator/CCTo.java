@@ -221,6 +221,16 @@ public class CCTo {
             temp = temp/100;
             return temp;
         }
+        public double getPercentFront(){
+            double temp = Math.round(forceFrontPer*100);
+            temp = temp/100;
+            return temp;
+        }
+        public double getPercentBack(){
+            double temp = Math.round(forceBackPer*100);
+            temp = temp/100;
+            return temp;
+        }
 
 
 
