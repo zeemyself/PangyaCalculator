@@ -3,12 +3,14 @@ package com.zeemyself.pangyacalculator;
 /**
  * Created by Swas on 9/3/2015.
  */
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.zeemyself.pangyacalculator.Tabs.SlidingTabLayout;
 
@@ -24,11 +26,15 @@ public class TabActivity extends ActionBarActivity {
     CharSequence Titles[]={"Home","Events"};
     int Numboftabs =2;
 
+    private TextView resFront,resBack;
+    private TextView percenFront,percenBack;
+    private TextView caliperFront,caliperBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitytab);
-
+//        Intent intent = getIntent();
 
         // Creating The Toolbar and setting it as the Toolbar for the activity
 
@@ -58,8 +64,14 @@ public class TabActivity extends ActionBarActivity {
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
 
-
-
+//        resFront = (TextView) findViewById(R.id.resFront);
+//        resBack = (TextView) findViewById(R.id.resBack);
+//        percenFront = (TextView) findViewById(R.id.percenFront);
+//        percenBack = (TextView) findViewById(R.id.percenBack);
+//        caliperFront = (TextView) findViewById(R.id.caliperFront);
+//        caliperBack = (TextView) findViewById(R.id.caliperBack);
+//
+//        resFront.setText("5555");
     }
 
 

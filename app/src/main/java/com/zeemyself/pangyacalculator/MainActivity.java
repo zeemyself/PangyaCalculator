@@ -9,29 +9,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView distance,height,wind,angle,terrain;
+    private EditText distance,height,wind,angle,terrain;
     private Button calc;
-
+    private CCDunk Dunk;
+    private CCDunk Toma;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        distance = (TextView) findViewById(R.id.dist);
-        height = (TextView) findViewById(R.id.height);
-        wind = (TextView) findViewById(R.id.wind);
-        angle = (TextView) findViewById(R.id.angle);
-        terrain = (TextView) findViewById(R.id.terrain);
+        distance = (EditText) findViewById(R.id.dist);
+        height = (EditText) findViewById(R.id.height);
+        wind = (EditText) findViewById(R.id.wind);
+        angle = (EditText) findViewById(R.id.angle);
+        terrain = (EditText) findViewById(R.id.terrain);
         calc = (Button) findViewById(R.id.calc);
+
 
         calc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //              Toast.makeText(getApplicationContext(),distance.getText(), Toast.LENGTH_LONG).show();
-                CCDunk Toma = new CCDunk(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
+                Toma = new CCDunk(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
                 Toast.makeText(getApplicationContext(), Toma.calcInfBack() + "", Toast.LENGTH_LONG).show();
 
 
@@ -43,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 //                               setContentView(R.layout.activitytab);
-                                startActivity(new Intent(getApplicationContext(),TabActivity.class));
+                               Intent inten =  new Intent(getApplicationContext(),TabActivity.class);
+                                inten.putExtra("resultFront",Toma.getResultFront());
+                                MainActivity.this.startActivity(inten);
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
