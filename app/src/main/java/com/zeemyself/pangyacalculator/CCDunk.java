@@ -21,6 +21,7 @@ public class CCDunk {
     private int angle;
     private int terrain;
     private int QBall;
+    private double QRBall;
     private double realDistance,actualDistance,calcDistance;
     private double pureHWI;
     private double HPlus,HMinus;
@@ -37,13 +38,17 @@ public class CCDunk {
     private double forceFrontPer,forceBackPer;
     private double calibateFront,calibateBack;
     private double calibateDisFront,calibateDisBack;
-    CCDunk (String distance,String height,String wind,String angle,String terrain){
+    private double NF1,NF2,NF3;
+    private double NB1,NB2,NB3;
+    private double SF1,SF2;
+    private double SB1,SB2;
+    CCDunk (String distance,String height,String wind,String angle,String terrain,String slope){
         this.distance = Double.parseDouble(distance);
         this.height = Double.parseDouble(height);
         this.wind = Integer.parseInt(wind);
         this.angle = Integer.parseInt(angle);
         this.terrain = Integer.parseInt(terrain);
-        this.QBall = 0;
+        this.QBall = Integer.parseInt(slope);
         realDistance = calcRealDistance();
         pureHWI = calcPureHWI();
         HPlus = calcHPlus();
@@ -54,6 +59,7 @@ public class CCDunk {
         InfBack = calcInfBack();
         InfHplus = calcInfHPlus();
         InfHminus = calcInfHMinus();
+        QRBall =calcQRBall();
         windForce = calcWindForce();
         windPlusInfH = calcWindPlusInfH();
         windMinusInfH = calcWindMinusInfH();
@@ -72,11 +78,25 @@ public class CCDunk {
         forceFrontPer = calcForceFrontPer();
         forceBackPer = calcForceBackPer();
 
+        NF1 = calcNF1();
+        NF2 = calcNF2();
+        NF3 = calcNF3();
+        NB1 = calcNB1();
+        NB2 = calcNB2();
+        NB3 = calcNB3();
+
+        SF2 = calcSF2();
+        SF1 = calcSF1();
+        SB2 = calcSB2();
+        SB1 = calcSB1();
+
         calibateFront = calcCalibate(calcFront());
         calibateBack = calcCalibate(calcBack());
 
         calibateDisFront = calcDisFront();
         calibateDisBack = calcDisBack();
+
+
     }
 
     public double calcPureHWI(){
@@ -125,6 +145,9 @@ public class CCDunk {
     public double calcInfBack(){
         return 2.8*(calcDistance-oneW90force)*(calcDistance-oneW80force)/((oneW100force-oneW90force)*(oneW100force-oneW80force))+2.3*(calcDistance-oneW100force)*(calcDistance-oneW80force)/((oneW90force-oneW100force)*(oneW90force-oneW80force))+1.8*(calcDistance-oneW100force)*(calcDistance-oneW90force)/((oneW80force-oneW100force)*(oneW80force-oneW90force));
     }
+    public double calcQRBall(){
+        return pureHWI/4*QBall;
+    }
     public double calcActualDistance(){
         if(height < 0)
             return height*HMinus;
@@ -167,10 +190,10 @@ public class CCDunk {
         return InfActual / windPercentMinus;
     }
     public double calcDevFront(){
-        return QBall + HWIWindPlus;
+        return QRBall + HWIWindPlus;
     }
     public double calcDevBack(){
-        return QBall + HWIWindMinus;
+        return QRBall + HWIWindMinus;
     }
     public double calcForceVPlus(){
         return realDistance + actualDistance - windPlusInfH;
@@ -185,10 +208,16 @@ public class CCDunk {
         return 100*(forceVMinus-oneW90force)*(forceVMinus-oneW80force)/((oneW100force-oneW90force)*(oneW100force-oneW80force))+90*(forceVMinus-oneW100force)*(forceVMinus-oneW80force)/((oneW90force-oneW100force)*(oneW90force-oneW80force))+80*(forceVMinus-oneW100force)*(forceVMinus-oneW90force)/((oneW80force-oneW100force)*(oneW80force-oneW90force));
     }
     public int calcFront(){
-        return (int) Math.ceil(((forceFrontPer - 70) / (20.0/72.0)) + 1);
+        if(NF3 == 0)
+            return (int) Math.floor(((forceFrontPer - 70) / (20.0 / 72.0)) + 1);
+        else
+            return (int) Math.ceil(((forceFrontPer - 70) / (20.0/72.0)) + 1);
     }
     public int calcBack(){
-        return (int) Math.ceil(((forceBackPer - 70) / (20.0/72.0)) + 1);
+        if(NB3 == 0)
+            return (int) Math.floor(((forceBackPer - 70) / (20.0/72.0)) + 1);
+        else
+            return (int) Math.ceil(((forceBackPer - 70) / (20.0/72.0)) + 1);
     }
     public double calcCalibate(int num){
         try {
@@ -230,7 +259,61 @@ public class CCDunk {
         temp = temp/100;
         return temp;
     }
+    public double calcNF1(){
+        return forceFrontPer%(20.0/72.0);
+    }
+    private double calcNF2(){
+        return NF1/(20.0/72.0);
+    }
+    private double calcNF3(){
+        if(NF2 < 0.288)
+            return Math.floor(NF2);
+        else
+            return Math.ceil(NF2);
 
+    }
+    private double calcNB1(){
+        return forceBackPer%(20.0/72.0);
+    }
+    private double calcNB2(){
+        return NB1/(20.0/72.0);
+    }
+    private double calcNB3(){
+        if(NB2 < 0.288)
+            return Math.floor(NB2);
+        else
+            return Math.ceil(NB2);
+    }
+    private double calcSF1(){
+        if(NF1 < 0.08)
+            return 9;
+        else
+            return SF2;
+    }
+    private double calcSF2(){
+        if(NF1>((20.0/72.0)-0.08))
+            return 9;
+        else
+            return 8;
+    }
+    private double calcSB1(){
+        if(NB1 < 0.08)
+            return 9;
+        else
+            return SB2;
+    }
+    private double calcSB2(){
+        if(NB1 > (20.0/72.0)-0.08)
+            return 9;
+        else
+            return 8;
+    }
+    public int getSpinFront(){
+        return (int)SF1;
+    }
+    public int getSpinBack(){
+        return (int)SB1;
+    }
 
 
 }

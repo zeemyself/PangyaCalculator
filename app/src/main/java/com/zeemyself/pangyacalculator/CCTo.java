@@ -21,6 +21,7 @@ public class CCTo {
     private int angle;
     private int terrain;
     private int QBall;
+    private double QRBall;
     private double realDistance,actualDistance,calcDistance;
     private double pureHWI;
     private double HPlus,HMinus;
@@ -37,13 +38,13 @@ public class CCTo {
     private double forceFrontPer,forceBackPer;
     private double calibateFront,calibateBack;
     private double calibateDisFront,calibateDisBack;
-    CCTo (String distance,String height,String wind,String angle,String terrain){
+    CCTo (String distance,String height,String wind,String angle,String terrain,String slope){
         this.distance = Double.parseDouble(distance);
         this.height = Double.parseDouble(height);
         this.wind = Integer.parseInt(wind);
         this.angle = Integer.parseInt(angle);
         this.terrain = Integer.parseInt(terrain);
-        this.QBall = 0;
+        this.QBall = Integer.parseInt(slope);
         realDistance = calcRealDistance();
         pureHWI = calcPureHWI();
         HPlus = calcHPlus();
@@ -54,6 +55,7 @@ public class CCTo {
         InfBack = calcInfBack();
         InfHplus = calcInfHPlus();
         InfHminus = calcInfHMinus();
+        QRBall =calcQRBall();
         windForce = calcWindForce();
         windPlusInfH = calcWindPlusInfH();
         windMinusInfH = calcWindMinusInfH();
@@ -125,6 +127,9 @@ public class CCTo {
         public double calcInfBack(){
             return ((((4*(calcDistance-oneW90force))*(calcDistance-oneW80force))/((oneW100force-oneW90force)*(oneW100force-oneW80force)))+(((4*(calcDistance-oneW100force))*(calcDistance-oneW80force))/((oneW90force-oneW100force)*(oneW90force-oneW80force))))+(((3*(calcDistance-oneW100force))*(calcDistance-oneW90force))/((oneW80force-oneW100force)*(oneW80force-oneW90force)));
         }
+        public double calcQRBall(){
+            return pureHWI/4*QBall;
+        }
         public double calcActualDistance(){
             if(height < 0)
                 return height*HMinus;
@@ -168,10 +173,10 @@ public class CCTo {
             return InfActual / windPercentMinus;
         }
         public double calcDevFront(){
-            return QBall + HWIWindPlus;
+            return QRBall + HWIWindPlus;
         }
         public double calcDevBack(){
-            return QBall + HWIWindMinus;
+            return QRBall + HWIWindMinus;
         }
         public double calcForceVPlus(){
             return realDistance + actualDistance - windPlusInfH;

@@ -18,6 +18,7 @@ public class Tab1 extends Fragment {
     private TextView resFront,resBack;
     private TextView percenFront,percenBack;
     private TextView caliperFront,caliperBack;
+    private TextView spinFront,spinBack;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab1,container,false);
@@ -27,7 +28,8 @@ public class Tab1 extends Fragment {
         percenBack = (TextView) v.findViewById(R.id.percenBackDunk);
         caliperFront = (TextView) v.findViewById(R.id.caliperFrontDunk);
         caliperBack = (TextView) v.findViewById(R.id.caliperBackDunk);
-
+        spinFront = (TextView) v.findViewById(R.id.spinFrontDunk);
+        spinBack = (TextView) v.findViewById(R.id.spinBackDunk);
 
         Intent intent = getActivity().getIntent();
         Bundle args = intent.getExtras();
@@ -37,12 +39,16 @@ public class Tab1 extends Fragment {
         String dunkPerB = args.getString("dunkPerB");
         String dunkCalF = args.getString("dunkCalF");
         String dunkCalB = args.getString("dunkCalB");
+        String dunkSpinF = args.getString("dunkSpinF");
+        String dunkSpinB = args.getString("dunkSpinB");
         resFront.setText(dunkResF);
         resBack.setText(dunkResB);
         percenFront.setText(dunkPerF);
         percenBack.setText(dunkPerB);
         caliperFront.setText(dunkCalF);
         caliperBack.setText(dunkCalB);
+        spinFront.setText(dunkSpinF);
+        spinBack.setText(dunkSpinB);
         return v;
     }
 

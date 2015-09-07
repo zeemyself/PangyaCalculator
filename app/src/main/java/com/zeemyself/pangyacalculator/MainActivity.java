@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText distance,height,wind,angle,terrain;
+    private EditText distance,height,wind,angle,terrain,slope;
     private Button calc;
     private CCDunk Dunk;
     private CCTo Toma;
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         wind = (EditText) findViewById(R.id.wind);
         angle = (EditText) findViewById(R.id.angle);
         terrain = (EditText) findViewById(R.id.terrain);
+        slope = (EditText) findViewById(R.id.SlopeBall);
         calc = (Button) findViewById(R.id.calc);
 
 
@@ -34,10 +35,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //              Toast.makeText(getApplicationContext(),distance.getText(), Toast.LENGTH_LONG).show();
-                Toma = new CCTo(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
-                Toast.makeText(getApplicationContext(), Toma.calcInfBack() + "", Toast.LENGTH_LONG).show();
-                Dunk = new CCDunk(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"");
-
+                Toma = new CCTo(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"",slope.getText()+"");
+                Dunk = new CCDunk(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"",slope.getText()+"");
+//                Toast.makeText(getApplicationContext(), Dunk.test() + "", Toast.LENGTH_LONG).show();
 
                 AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Result Tomahawk 280+6")
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 //                               setContentView(R.layout.activitytab);
                                Intent inten =  new Intent(getApplicationContext(),TabActivity.class);
                                 String toResF,toResB,toPerF,toPerB,toCalF,toCalB;
-                                String dunkResF,dunkResB,dunkPerF,dunkPerB,dunkCalF,dunkCalB;
+                                String dunkResF,dunkResB,dunkPerF,dunkPerB,dunkCalF,dunkCalB,dunkSpinF,dunkSpinB;
                                 toResF = Toma.getResultFront()+"";
                                 toResB = Toma.getResultBack()+"";
                                 toPerF = Toma.getPercentFront()+"%";
@@ -67,13 +67,16 @@ public class MainActivity extends AppCompatActivity {
                                 dunkPerB = Dunk.getPercentBack()+"%";
                                 dunkCalF = Dunk.getForceFront()+"";
                                 dunkCalB = Dunk.getForceBack()+"";
+                                dunkSpinF = Dunk.getSpinFront()+"";
+                                dunkSpinB = Dunk.getSpinBack()+"";
                                 inten.putExtra("dunkResF",dunkResF);
                                 inten.putExtra("dunkResB",dunkResB);
                                 inten.putExtra("dunkPerF",dunkPerF);
                                 inten.putExtra("dunkPerB",dunkPerB);
                                 inten.putExtra("dunkCalF",dunkCalF);
                                 inten.putExtra("dunkCalB",dunkCalB);
-
+                                inten.putExtra("dunkSpinF",dunkSpinF);
+                                inten.putExtra("dunkSpinB",dunkSpinB);
                                 MainActivity.this.startActivity(inten);
                             }
                         })

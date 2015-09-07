@@ -34,7 +34,7 @@
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="260"
+            android:text="230"
             android:id="@+id/dist"
             android:inputType = "numberDecimal"
             android:layout_weight="1"
@@ -142,6 +142,31 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:text="100" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="SlopeBall"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:id="@+id/textView19" />
+
+        <EditText
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:id="@+id/SlopeBall"
+            android:inputType="number"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
     </LinearLayout>
 
     <Button
