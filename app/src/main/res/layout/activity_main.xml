@@ -184,6 +184,7 @@
         android:id="@+id/calc"
         android:layout_gravity="right"
         android:layout_marginTop="20dp" />
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
@@ -194,5 +195,6 @@
         ads:adUnitId="@string/banner_ad_unit_id"
         android:layout_marginBottom="10dp">
     </com.google.android.gms.ads.AdView>
+
 
 </LinearLayout>
