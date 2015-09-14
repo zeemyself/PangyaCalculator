@@ -40,12 +40,20 @@ public class MainActivity extends AppCompatActivity {
         slope = (EditText) findViewById(R.id.SlopeBall);
         calc = (Button) findViewById(R.id.calc);
 
+        //Next Button will set cursor to last
+        distance.setSelection(distance.getText().length());
+        height.setSelection(height.getText().length());
+        wind.setSelection(wind.getText().length());
+        angle.setSelection(angle.getText().length());
+        terrain.setSelection(terrain.getText().length());
+        slope.setSelection(slope.getText().length());
 
+        // Advertisement :((((
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         if(!pro)
             mAdView.loadAd(adRequest);
-
+        // Full Picture ads
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-2847267145905566/6087620935");
 
