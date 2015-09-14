@@ -1,6 +1,7 @@
 package com.zeemyself.pangyacalculator;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -45,12 +46,29 @@ public class Tab1 extends Fragment {
         resBack.setText(dunkResB);
         percenFront.setText(dunkPerF);
         percenBack.setText(dunkPerB);
-        caliperFront.setText(dunkCalF);
-        caliperBack.setText(dunkCalB);
+        caliperFront.setText(overloadResult(dunkPerF,dunkCalF));
+        caliperBack.setText(overloadResult(dunkPerF,dunkCalB));
         spinFront.setText(dunkSpinF);
         spinBack.setText(dunkSpinB);
+
+        if(dunkCalF.equals("0.0"))
+            caliperFront.setTextColor(Color.RED);
+        if(dunkCalB.equals("0.0"))
+            caliperBack.setTextColor(Color.RED);
+
+
+
+
         return v;
     }
-
+    public String overloadResult(String percen,String calip){
+        if(calip.equals("0.0")) {
+            percen = percen.substring(0, percen.length() - 1);
+            double tmp = Double.parseDouble(percen);
+            return (tmp * 280 / 100) + "";
+        }
+        else
+            return calip;
+    }
 
 }

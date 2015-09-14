@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -39,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
         terrain = (EditText) findViewById(R.id.terrain);
         slope = (EditText) findViewById(R.id.SlopeBall);
         calc = (Button) findViewById(R.id.calc);
+
+        //Reopen app now show recent input
+        distance.setText(settings.getString("distance","250"));
+        height.setText(settings.getString("height","3.5"));
+        wind.setText(settings.getString("wind","3"));
+        angle.setText(settings.getString("angle","40"));
+        terrain.setText(settings.getString("terrain","100"));
+        slope.setText(settings.getString("slope","0"));
 
         //Next Button will set cursor to last
         distance.setSelection(distance.getText().length());
@@ -181,7 +188,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences("pro", MODE_WORLD_READABLE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("pro", pro);
-
+        editor.putString("distance", distance.getText().toString());
+        editor.putString("height",height.getText().toString());
+        editor.putString("wind",wind.getText().toString());
+        editor.putString("angle",angle.getText().toString());
+        editor.putString("terrain",terrain.getText().toString());
+        editor.putString("slope",slope.getText().toString());
         // Commit the edits!
         editor.commit();
     }
