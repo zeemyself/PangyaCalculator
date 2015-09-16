@@ -23,8 +23,8 @@ public class TabActivity extends ActionBarActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Dunk","Tomahawk"};
-    int Numboftabs =2;
+    CharSequence Titles[]={"Dunk","Tomahawk","BackSpin"};
+    int Numboftabs =3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

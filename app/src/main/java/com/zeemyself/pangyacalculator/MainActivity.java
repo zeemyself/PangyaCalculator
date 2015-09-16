@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button calc;
     private CCDunk Dunk;
     private CCTo Toma;
+    private CCBs Bs;
     public boolean pro =false;
     private InterstitialAd mInterstitialAd;
     @Override
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
 //              Toast.makeText(getApplicationContext(),distance.getText(), Toast.LENGTH_LONG).show();
                 Toma = new CCTo(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"",slope.getText()+"");
                 Dunk = new CCDunk(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"",slope.getText()+"");
-//                Toast.makeText(getApplicationContext(), Dunk.test() + "", Toast.LENGTH_LONG).show();
+                Bs = new CCBs(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"",slope.getText()+"");
+                Toast.makeText(getApplicationContext(), Bs.getHWI() + "", Toast.LENGTH_LONG).show();
 
                 AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Result Tomahawk 280+6")
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                                Intent inten =  new Intent(getApplicationContext(),TabActivity.class);
                                 String toResF,toResB,toPerF,toPerB,toCalF,toCalB;
                                 String dunkResF,dunkResB,dunkPerF,dunkPerB,dunkCalF,dunkCalB,dunkSpinF,dunkSpinB;
+                                String bsResF,bsResB,bsPerF,bsPerB,bsCalF,bsCalB,bsSpinF,bsSpinB;
                                 toResF = Toma.getResultFront()+"";
                                 toResB = Toma.getResultBack()+"";
                                 toPerF = Toma.getPercentFront()+"%";
@@ -119,6 +122,23 @@ public class MainActivity extends AppCompatActivity {
                                 inten.putExtra("dunkCalB",dunkCalB);
                                 inten.putExtra("dunkSpinF",dunkSpinF);
                                 inten.putExtra("dunkSpinB",dunkSpinB);
+
+                                bsResF = Bs.getResultFront()+"";
+                                bsResB = Bs.getResultBack()+"";
+                                bsPerF = Bs.getPercentFront()+"%";
+                                bsPerB = Bs.getPercentBack()+"%";
+                                bsCalF = Bs.getForceFront()+"";
+                                bsCalB = Bs.getForceBack()+"";
+                                bsSpinF = Bs.getSpinFront()+"";
+                                bsSpinB = Bs.getSpinBack()+"";
+                                inten.putExtra("bsResF",bsResF);
+                                inten.putExtra("bsResB",bsResB);
+                                inten.putExtra("bsPerF",bsPerF);
+                                inten.putExtra("bsPerB",bsPerB);
+                                inten.putExtra("bsCalF",bsCalF);
+                                inten.putExtra("bsCalB",bsCalB);
+                                inten.putExtra("bsSpinF",bsSpinF);
+                                inten.putExtra("bsSpinB",bsSpinB);
                                 MainActivity.this.startActivity(inten);
                             }
                         })

@@ -47,7 +47,7 @@ public class Tab1 extends Fragment {
         percenFront.setText(dunkPerF);
         percenBack.setText(dunkPerB);
         caliperFront.setText(overloadResult(dunkPerF,dunkCalF));
-        caliperBack.setText(overloadResult(dunkPerF,dunkCalB));
+        caliperBack.setText(overloadResult(dunkPerB,dunkCalB));
         spinFront.setText(dunkSpinF);
         spinBack.setText(dunkSpinB);
 
@@ -65,7 +65,9 @@ public class Tab1 extends Fragment {
         if(calip.equals("0.0")) {
             percen = percen.substring(0, percen.length() - 1);
             double tmp = Double.parseDouble(percen);
-            return (tmp * 280 / 100) + "";
+            tmp = tmp * 280 / 100;
+            tmp = Math.floor(tmp * 100)/100;
+            return tmp+"";
         }
         else
             return calip;
