@@ -1,37 +1,72 @@
 package com.zeemyself.pangyacalculator;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+//import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
-public class MainActivity extends AppCompatActivity {
+import org.w3c.dom.Text;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class MainActivity extends FragmentActivity implements LoginFB{
+    private TextView textview;
     private EditText distance,height,wind,angle,terrain,slope;
     private Button calc;
     private CCDunk Dunk;
     private CCTo Toma;
     private CCBs Bs;
-    public boolean pro =false;
+    public static boolean pro =false;
     private InterstitialAd mInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_main);
+        hashKey();
+        FragmentManager fm = getSupportFragmentManager();
+        FacebookFragment frag = (FacebookFragment) fm.findFragmentById(R.id.fragment);
+
+
+
+
 
         SharedPreferences settings = getSharedPreferences("pro", 0);
         pro = settings.getBoolean("pro",false);
-
+        textview = (TextView) findViewById(R.id.textView);
         distance = (EditText) findViewById(R.id.dist);
         height = (EditText) findViewById(R.id.height);
         wind = (EditText) findViewById(R.id.wind);
@@ -64,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         // Full Picture ads
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-2847267145905566/6087620935");
+
+        if(frag.isLogin())
+            textview.setText("555");
 
 
         calc.setOnClickListener(new View.OnClickListener() {
@@ -216,5 +254,38 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("slope",slope.getText().toString());
         // Commit the edits!
         editor.commit();
+    }
+
+    public void hashKey() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.zeemyself.pangyacalculator",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("ZEEMYSELF", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
+    }
+
+    @Override
+    public void onLogin(String data) {
+        textview.setText(data);
+
+    }
+
+    @Override
+    public void isVIP(String id) {
+        if(check(id))
+            pro = true;
+        Toast.makeText(getApplicationContext(),id,Toast.LENGTH_LONG).show();
+    }
+    public boolean check(String com){
+        return (com.equals("10201108558272727"));
     }
 }

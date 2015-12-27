@@ -3,19 +3,23 @@ package com.zeemyself.pangyacalculator;
 /**
  * Created by Swas on 9/3/2015.
  */
+import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.zeemyself.pangyacalculator.Tabs.SlidingTabLayout;
+import com.zeemyself.pangyacalculator.MainActivity;
 
 
-public class TabActivity extends ActionBarActivity {
+public class TabActivity extends AppCompatActivity {
 
     // Declaring Your View and Variables
 
@@ -79,6 +83,7 @@ public class TabActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.redeem) {
+            MainActivity.pro = true;
             return true;
         }
 

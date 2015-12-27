@@ -20,7 +20,7 @@ public class CCBs {
     private int wind;
     private int angle;
     private int terrain;
-    private int QBall;
+    private double QBall;
     private double QRBall;
     private double realDistance,actualDistance,calcDistance;
     private double pureHWI;
@@ -49,7 +49,7 @@ public class CCBs {
         this.wind = Integer.parseInt(wind);
         this.angle = Integer.parseInt(angle);
         this.terrain = Integer.parseInt(terrain);
-        this.QBall = Integer.parseInt(slope);
+        this.QBall = Double.parseDouble(slope);
         realDistance = calcRealDistance();
         pureHWI = calcPureHWI();
         HPlus = calcHPlus();
