@@ -119,74 +119,76 @@ public class MainActivity extends FragmentActivity implements LoginFB{
                 Toma = new CCTo(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"",slope.getText()+"");
                 Dunk = new CCDunk(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"",slope.getText()+"");
                 Bs = new CCBs(distance.getText()+"",height.getText()+"",wind.getText()+"",angle.getText()+"",terrain.getText()+"",slope.getText()+"");
-                Toast.makeText(getApplicationContext(), Bs.getHWI() + "", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), Bs.getHWI() + "", Toast.LENGTH_LONG).show();
 
-                AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Result Tomahawk 280+6")
-                        .setMessage("WindFront - Result(" + Dunk.getResultFront() +") Force(" + Toma.getForceFront() +")\n" +"WindBack - Result(" + Toma.getResultBack() +") Force(" + Toma.getForceBack() +")")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-//                               setContentView(R.layout.activitytab);
-                               Intent inten =  new Intent(getApplicationContext(),TabActivity.class);
-                                String toResF,toResB,toPerF,toPerB,toCalF,toCalB;
-                                String dunkResF,dunkResB,dunkPerF,dunkPerB,dunkCalF,dunkCalB,dunkSpinF,dunkSpinB;
-                                String bsResF,bsResB,bsPerF,bsPerB,bsCalF,bsCalB,bsSpinF,bsSpinB;
-                                toResF = Toma.getResultFront()+"";
-                                toResB = Toma.getResultBack()+"";
-                                toPerF = Toma.getPercentFront()+"%";
-                                toPerB = Toma.getPercentBack()+"%";
-                                toCalF = Toma.getForceFront()+"";
-                                toCalB = Toma.getForceBack()+"";
-                                inten.putExtra("toResF",toResF);
-                                inten.putExtra("toResB",toResB);
-                                inten.putExtra("toPerF",toPerF);
-                                inten.putExtra("toPerB",toPerB);
-                                inten.putExtra("toCalF",toCalF);
-                                inten.putExtra("toCalB", toCalB);
+                Intent inten =  new Intent(getApplicationContext(),TabActivity.class);
+                String toResF,toResB,toPerF,toPerB,toCalF,toCalB;
+                String dunkResF,dunkResB,dunkPerF,dunkPerB,dunkCalF,dunkCalB,dunkSpinF,dunkSpinB;
+                String bsResF,bsResB,bsPerF,bsPerB,bsCalF,bsCalB,bsSpinF,bsSpinB;
+                toResF = Toma.getResultFront()+"";
+                toResB = Toma.getResultBack()+"";
+                toPerF = Toma.getPercentFront()+"%";
+                toPerB = Toma.getPercentBack()+"%";
+                toCalF = Toma.getForceFront()+"";
+                toCalB = Toma.getForceBack()+"";
+                inten.putExtra("toResF",toResF);
+                inten.putExtra("toResB",toResB);
+                inten.putExtra("toPerF",toPerF);
+                inten.putExtra("toPerB",toPerB);
+                inten.putExtra("toCalF",toCalF);
+                inten.putExtra("toCalB", toCalB);
 
-                                dunkResF = Dunk.getResultFront()+"";
-                                dunkResB = Dunk.getResultBack()+"";
-                                dunkPerF = Dunk.getPercentFront()+"%";
-                                dunkPerB = Dunk.getPercentBack()+"%";
-                                dunkCalF = Dunk.getForceFront()+"";
-                                dunkCalB = Dunk.getForceBack()+"";
-                                dunkSpinF = Dunk.getSpinFront()+"";
-                                dunkSpinB = Dunk.getSpinBack()+"";
-                                inten.putExtra("dunkResF",dunkResF);
-                                inten.putExtra("dunkResB",dunkResB);
-                                inten.putExtra("dunkPerF",dunkPerF);
-                                inten.putExtra("dunkPerB",dunkPerB);
-                                inten.putExtra("dunkCalF",dunkCalF);
-                                inten.putExtra("dunkCalB",dunkCalB);
-                                inten.putExtra("dunkSpinF",dunkSpinF);
-                                inten.putExtra("dunkSpinB",dunkSpinB);
+                dunkResF = Dunk.getResultFront()+"";
+                dunkResB = Dunk.getResultBack()+"";
+                dunkPerF = Dunk.getPercentFront()+"%";
+                dunkPerB = Dunk.getPercentBack()+"%";
+                dunkCalF = Dunk.getForceFront()+"";
+                dunkCalB = Dunk.getForceBack()+"";
+                dunkSpinF = Dunk.getSpinFront()+"";
+                dunkSpinB = Dunk.getSpinBack()+"";
+                inten.putExtra("dunkResF",dunkResF);
+                inten.putExtra("dunkResB",dunkResB);
+                inten.putExtra("dunkPerF",dunkPerF);
+                inten.putExtra("dunkPerB",dunkPerB);
+                inten.putExtra("dunkCalF",dunkCalF);
+                inten.putExtra("dunkCalB",dunkCalB);
+                inten.putExtra("dunkSpinF",dunkSpinF);
+                inten.putExtra("dunkSpinB",dunkSpinB);
 
-                                bsResF = Bs.getResultFront()+"";
-                                bsResB = Bs.getResultBack()+"";
-                                bsPerF = Bs.getPercentFront()+"%";
-                                bsPerB = Bs.getPercentBack()+"%";
-                                bsCalF = Bs.getForceFront()+"";
-                                bsCalB = Bs.getForceBack()+"";
-                                bsSpinF = Bs.getSpinFront()+"";
-                                bsSpinB = Bs.getSpinBack()+"";
-                                inten.putExtra("bsResF",bsResF);
-                                inten.putExtra("bsResB",bsResB);
-                                inten.putExtra("bsPerF",bsPerF);
-                                inten.putExtra("bsPerB",bsPerB);
-                                inten.putExtra("bsCalF",bsCalF);
-                                inten.putExtra("bsCalB",bsCalB);
-                                inten.putExtra("bsSpinF",bsSpinF);
-                                inten.putExtra("bsSpinB",bsSpinB);
-                                MainActivity.this.startActivity(inten);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                bsResF = Bs.getResultFront()+"";
+                bsResB = Bs.getResultBack()+"";
+                bsPerF = Bs.getPercentFront()+"%";
+                bsPerB = Bs.getPercentBack()+"%";
+                bsCalF = Bs.getForceFront()+"";
+                bsCalB = Bs.getForceBack()+"";
+                bsSpinF = Bs.getSpinFront()+"";
+                bsSpinB = Bs.getSpinBack()+"";
+                inten.putExtra("bsResF",bsResF);
+                inten.putExtra("bsResB",bsResB);
+                inten.putExtra("bsPerF",bsPerF);
+                inten.putExtra("bsPerB",bsPerB);
+                inten.putExtra("bsCalF",bsCalF);
+                inten.putExtra("bsCalB",bsCalB);
+                inten.putExtra("bsSpinF",bsSpinF);
+                inten.putExtra("bsSpinB",bsSpinB);
+                MainActivity.this.startActivity(inten);
+
+//                AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
+//                        .setTitle("Result Tomahawk 280+6")
+//                        .setMessage("WindFront - Result(" + Dunk.getResultFront() +") Force(" + Toma.getForceFront() +")\n" +"WindBack - Result(" + Toma.getResultBack() +") Force(" + Toma.getForceBack() +")")
+//                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+////                               setContentView(R.layout.activitytab);
+//
+//                            }
+//                        })
+//                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // do nothing
+//                            }
+//                        })
+//                        .setIcon(android.R.drawable.ic_dialog_alert)
+//                        .show();
             }
         });
     }
