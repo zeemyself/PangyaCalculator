@@ -34,11 +34,13 @@ public class FacebookFragment extends Fragment {
         @Override
         public void onSuccess(LoginResult loginResult) {
             AccessToken accessToken = loginResult.getAccessToken();
-            Profile profile = Profile.getCurrentProfile();
-            fb.isVIP(profile.getId());
-            fb.onLogin("Welcome " + profile.getName());
-            accessTokenTracker.startTracking();
 
+            Profile profile = Profile.getCurrentProfile();
+            if(profile!=null) {
+                fb.isVIP(profile.getId());
+                fb.onLogin("Welcome " + profile.getName());
+                accessTokenTracker.startTracking();
+            }
         }
 
         @Override
