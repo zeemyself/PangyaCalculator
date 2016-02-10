@@ -47,7 +47,7 @@ public class MainActivity extends FragmentActivity implements LoginFB{
     private CCDunk Dunk;
     private CCTo Toma;
     private CCBs Bs;
-    public static boolean pro =true;
+    public static boolean pro =false;
     private InterstitialAd mInterstitialAd;
 
     @Override
