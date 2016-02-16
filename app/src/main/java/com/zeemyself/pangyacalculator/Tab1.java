@@ -55,10 +55,6 @@ public class Tab1 extends Fragment {
             caliperFront.setTextColor(Color.RED);
         if(dunkCalB.equals("0.0"))
             caliperBack.setTextColor(Color.RED);
-
-
-
-
         return v;
     }
     public String overloadResult(String percen,String calip){
