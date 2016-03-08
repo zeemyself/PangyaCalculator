@@ -191,10 +191,10 @@ public class CCTo {
             return 100*(forceVMinus-oneW90force)*(forceVMinus-oneW80force)/((oneW100force-oneW90force)*(oneW100force-oneW80force))+90*(forceVMinus-oneW100force)*(forceVMinus-oneW80force)/((oneW90force-oneW100force)*(oneW90force-oneW80force))+80*(forceVMinus-oneW100force)*(forceVMinus-oneW90force)/((oneW80force-oneW100force)*(oneW80force-oneW90force));
         }
         public int calcFront(){
-            return (int) Math.ceil(((forceFrontPer - 80) / (20.0/72.0)) + 1);
+            return (int) Math.ceil(((forceFrontPer - 80) / (20.0/72.0)) + 2);
         }
         public int calcBack(){
-            return (int) Math.ceil(((forceBackPer - 80) / (20.0/72.0)) + 1);
+            return (int) Math.ceil(((forceBackPer - 80) / (20.0/72.0)) + 2);
         }
         public double calcCalibate(int num){
             try {
